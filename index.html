@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>QuizMaster — Platform Kuis Interaktif Siswa SMP/MTs</title>
+<meta name="description" content="QuizMaster: aplikasi kuis interaktif untuk siswa SMP/MTs. Latihan soal, XP, badge, dan statistik belajar.">
+<link rel="stylesheet" href="style.css">
+<script>
+  // Terapkan tema tersimpan SEBELUM CSS sempat menggambar, supaya tidak ada "kedipan" warna.
+  // Dibungkus try/catch: jika localStorage diblokir/rusak, aplikasi tetap tampil dengan tema default.
+  (function () {
+    try {
+      var raw = localStorage.getItem("quizmaster_theme");
+      var theme = raw ? JSON.parse(raw) : "light";
+      document.documentElement.setAttribute("data-theme", theme === "dark" ? "dark" : "light");
+    } catch (e) {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+  })();
+</script>
+</head>
+<body>
+
+<!-- ===== Background dekoratif (Edu-Tech Futuristic) — murni visual, tidak mengganggu interaksi ===== -->
+<div class="bg-layer" aria-hidden="true">
+  <div class="bg-gradient-base"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-orb o1"></div>
+  <div class="bg-orb o2"></div>
+  <div class="bg-orb o3"></div>
+  <div class="bg-orb o4"></div>
+  <div class="bg-particles">
+    <span class="bg-particle" style="top:12%;left:20%;"></span>
+    <span class="bg-particle" style="top:28%;left:75%;"></span>
+    <span class="bg-particle" style="top:55%;left:12%;"></span>
+    <span class="bg-particle" style="top:68%;left:60%;"></span>
+    <span class="bg-particle" style="top:80%;left:35%;"></span>
+    <span class="bg-particle" style="top:22%;left:48%;"></span>
+    <span class="bg-particle" style="top:40%;left:88%;"></span>
+    <span class="bg-particle" style="top:90%;left:78%;"></span>
+  </div>
+</div>
+
+<div class="app-shell">
+  <!-- ===== Sidebar (desktop, >=1024px) ===== -->
+  <aside class="sidebar" aria-label="Navigasi utama">
+    <div class="sidebar-logo">🎓 QuizMaster</div>
+    <nav id="sidebar-nav"></nav>
+  </aside>
+
+  <!-- ===== Topbar (mobile & tablet) ===== -->
+  <header class="mobile-topbar">
+    <button class="icon-btn" onclick="toggleMobileDrawer()" aria-label="Buka menu navigasi">☰</button>
+    <span class="topbar-title">🎓 QuizMaster</span>
+    <button class="icon-btn" id="theme-toggle-mobile" onclick="handleToggleThemeQuick()" aria-label="Ganti tema terang/gelap">🌙</button>
+  </header>
+
+  <!-- ===== Konten halaman ===== -->
+  <main class="main-content">
+    <div id="app-content" role="main" aria-live="polite"></div>
+  </main>
+
+  <!-- ===== Bottom navigation (mobile & tablet) ===== -->
+  <nav class="bottom-nav" id="bottom-nav" aria-label="Navigasi bawah"></nav>
+</div>
+
+<!-- ===== Drawer menu (mobile, berisi seluruh menu) ===== -->
+<div class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer-panel">
+    <button class="icon-btn drawer-close" onclick="toggleMobileDrawer()" aria-label="Tutup menu">✕</button>
+    <nav id="mobile-drawer-list"></nav>
+  </div>
+</div>
+
+<!-- ===== Toast & modal (dipakai di seluruh halaman) ===== -->
+<div id="toast-container" class="toast-container" aria-live="polite"></div>
+<div id="modal-root"></div>
+
+<!-- ===== Skrip aplikasi (satu file, 100% lokal, tanpa backend/login) ===== -->
+<script src="script.js"></script>
+</body>
+</html>
